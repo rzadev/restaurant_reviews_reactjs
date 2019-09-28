@@ -1,0 +1,48 @@
+[
+  {
+    "place_id": "Place1",
+    "name": "Sederhana",
+    "vicinity": "Jl. Raya Padang - Indarung No.28 Padang",
+    "geometry": {
+      "location": {
+        "lat": -0.9523246,
+        "lng": 100.422538
+      }
+    },
+    "rating": 3.5,
+    "user_ratings_total": 2,
+    "reviews": [
+      {
+        "rating": 3,
+        "text": "Fast service, good taste of food, large and comfort place to enjoy the food, the price is good also for this food."
+      },
+      {
+        "rating": 4,
+        "text": "High quality food, not to spicy. Ideal for people who could not handle very spicy sambal"
+      }
+    ]
+  },
+  {
+    "place_id": "Place2",
+    "name": "Lamun Ombak",
+    "vicinity": "Jalan Rimbo Data No. 10 Padang",
+    "geometry": {
+      "location": {
+        "lat": -0.9529247,
+        "lng": 100.4182504
+      }
+    },
+    "rating": 4.0,
+    "user_ratings_total": 2,
+    "reviews": [
+      {
+        "rating": 4,
+        "text": "My dad said this place was packed for a reason. After tasting the heavenly delicious minang food, I could see why"
+      },
+      {
+        "rating": 4,
+        "text": "Very famous padang style restaurant in Padang. So far they do not have any branch yet. Very popular and crowded"
+      }
+    ]
+  }
+]
