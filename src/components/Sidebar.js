@@ -1,6 +1,6 @@
-import './sidebar.css';
-import React, { Component } from 'react';
-import StarRatingComponent from 'react-star-rating-component';
+import "./sidebar.css";
+import React, { Component } from "react";
+import StarRatingComponent from "react-star-rating-component";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class Sidebar extends Component {
 
     // Find the TEXTAREA and SELECT tag from the form
     e.target.childNodes.forEach(el => {
-      if (el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')
+      if (el.tagName === "TEXTAREA" || el.tagName === "SELECT")
         // Add the value from the TEXTAREA and SELECT tag to the details object
         details[el.name] = el.value;
     });
@@ -24,23 +24,23 @@ class Sidebar extends Component {
     this.props.places.forEach(place => {
       if (e.target.id === place.place_id) {
         // Simple form validation
-        if (details.rating === 'Choose Rating') {
-          alert('Please select a rating for the restaurant on the sidebar');
+        if (details.rating === "Choose Rating") {
+          alert("Please select a rating for the restaurant on the sidebar");
           return false;
         }
 
-        if (details.feedback === '') {
-          alert('Please write a review for the restaurant on the sidebar');
+        if (details.feedback === "") {
+          alert("Please write a review for the restaurant on the sidebar");
           return false;
         }
 
         let ratingSum = place.rating * place.user_ratings_total;
         let currentRatingSum = ratingSum + parseInt(details.rating);
 
-        if (details.rating >= 0 && details.feedback !== '') {
+        if (details.rating >= 0 && details.feedback !== "") {
           // Add the ID to the details object
-          details['id'] = place.place_id;
-          details['position'] = place.geometry.location;
+          details["id"] = place.place_id;
+          details["position"] = place.geometry.location;
 
           // Increase the sum of user_ratings_total when the form has submitted
           place.user_ratings_total++;
@@ -68,11 +68,11 @@ class Sidebar extends Component {
   // Clear the form value after it has submitted
   clearInput = e => {
     e.target.childNodes.forEach(el => {
-      if (el.tagName === 'TEXTAREA') {
+      if (el.tagName === "TEXTAREA") {
         el.value = null;
       }
-      if (el.tagName === 'SELECT') {
-        el.value = 'Choose Rating';
+      if (el.tagName === "SELECT") {
+        el.value = "Choose Rating";
       }
     });
   };
@@ -84,7 +84,13 @@ class Sidebar extends Component {
           <div className='restaurantsFilter'>{this.props.children}</div>
           <div id='places'>
             {this.props.places.map(place => (
-              <div key={place.place_id} className='restaurants'>
+              <div
+                key={place.place_id}
+                className='restaurants'
+                onClick={() => {
+                  this.props.listItemClick(place);
+                }}
+              >
                 <div className='restaurantName'> {place.name} </div>
                 <div className='starRating'>
                   <div className='numberRating'>{place.rating}</div>
@@ -98,7 +104,7 @@ class Sidebar extends Component {
                         <span>
                           <i
                             className={
-                              index <= value ? 'fas fa-star' : 'far fa-star'
+                              index <= value ? "fas fa-star" : "far fa-star"
                             }
                           />
                         </span>
@@ -107,7 +113,7 @@ class Sidebar extends Component {
                     renderStarIconHalf={() => {
                       return (
                         <span>
-                          <span style={{ position: 'absolute' }}>
+                          <span style={{ position: "absolute" }}>
                             <i className='far fa-star' />
                           </span>
                           <span>

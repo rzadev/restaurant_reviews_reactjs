@@ -1,11 +1,11 @@
-import './App.css';
-import React, { Component } from 'react';
-import { load_google_maps } from '../api/googlemaps';
-import { getGoogleImage } from '../api/googlemaps';
-import Sidebar from './Sidebar';
-import RatingsFilter from './RatingsFilter';
-import AddRestaurants from './AddRestaurants';
-import Header from './Header';
+import "./App.css";
+import React, { Component } from "react";
+import { load_google_maps } from "../api/googlemaps";
+import { getGoogleImage } from "../api/googlemaps";
+import Sidebar from "./Sidebar";
+import RatingsFilter from "./RatingsFilter";
+import AddRestaurants from "./AddRestaurants";
+import Header from "./Header";
 
 class App extends Component {
   constructor(props) {
@@ -21,12 +21,12 @@ class App extends Component {
       newMarkersArr: [],
       newReviews: [],
       newReviewsNewRestaurants: [],
-      newRestaurantName: '',
-      newRestaurantAddress: '',
-      newRestaurantRating: '',
-      newRestaurantFeedback: '',
+      newRestaurantName: "",
+      newRestaurantAddress: "",
+      newRestaurantRating: "",
+      newRestaurantFeedback: "",
       currentClickLocation: null,
-      randomID: ''
+      randomID: ""
     };
   }
 
@@ -35,7 +35,7 @@ class App extends Component {
     let get_google = load_google_maps();
 
     // Get the the local JSON data from api/restaurants.json
-    let localJson = require('../api/restaurants.json');
+    let localJson = require("../api/restaurants.json");
 
     // Get the user coordinate
     window.navigator.geolocation.getCurrentPosition(
@@ -59,13 +59,13 @@ class App extends Component {
           this.state.lat,
           this.state.lon
         );
-        let infowindow = new google.maps.InfoWindow({
+        this.infowindow = new google.maps.InfoWindow({
           maxWidth: 450
         });
         this.results = [];
         this.newMarkers = [];
         this.newMarkersObj = {};
-        this.map = new google.maps.Map(document.getElementById('map'), {
+        this.map = new google.maps.Map(document.getElementById("map"), {
           zoom: 18,
           center: {
             lat: this.state.lat,
@@ -73,8 +73,8 @@ class App extends Component {
           },
           styles: [
             {
-              featureType: 'poi',
-              stylers: [{ visibility: 'off' }]
+              featureType: "poi",
+              stylers: [{ visibility: "off" }]
             }
           ]
         });
@@ -84,7 +84,7 @@ class App extends Component {
 
         // Icon for the restaurants marker
         let markerIcon = {
-          url: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
+          url: "http://maps.google.com/mapfiles/kml/shapes/dining.png",
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
@@ -116,10 +116,10 @@ class App extends Component {
         /* Search the nearest restaurants from the Google places library
         based on the current user coordinate */
         service.nearbySearch(
-          { location: this.currentPos, radius: '200', type: ['restaurant'] },
+          { location: this.currentPos, radius: "150", type: ["restaurant"] },
           (results, status) => {
             // console.log(results);
-            if (status !== 'OK') return;
+            if (status !== "OK") return;
 
             results.forEach(result => {
               if (result.rating !== undefined) {
@@ -132,13 +132,13 @@ class App extends Component {
               let request = {
                 placeId: places.place_id,
                 fields: [
-                  'geometry',
-                  'name',
-                  'place_id',
-                  'rating',
-                  'reviews',
-                  'user_ratings_total',
-                  'vicinity'
+                  "geometry",
+                  "name",
+                  "place_id",
+                  "rating",
+                  "reviews",
+                  "user_ratings_total",
+                  "vicinity"
                 ]
               };
 
@@ -164,12 +164,12 @@ class App extends Component {
         );
 
         // Event listener to add new markers
-        google.maps.event.addListener(this.map, 'click', event => {
-          let addRestaurant = document.getElementById('addRestaurant');
+        google.maps.event.addListener(this.map, "click", event => {
+          let addRestaurant = document.getElementById("addRestaurant");
           // Create random ID for the new restaurant
           let randomID = () => {
             return (
-              '_' +
+              "_" +
               Math.random()
                 .toString(36)
                 .substr(2, 9)
@@ -178,25 +178,25 @@ class App extends Component {
           this.setState({ randomID: randomID() }, () => {});
 
           if (
-            addRestaurant.style.display === '' ||
-            addRestaurant.style.display === 'none'
+            addRestaurant.style.display === "" ||
+            addRestaurant.style.display === "none"
           ) {
-            addRestaurant.style.display = 'block';
+            addRestaurant.style.display = "block";
             addTempMarker(event.latLng);
             this.setState({ currentClickLocation: event.latLng }, () => {});
           } else {
-            addRestaurant.style.display = 'none';
+            addRestaurant.style.display = "none";
           }
         });
 
-        let contactFormBtn = document.querySelector('.contactForm__button');
+        let contactFormBtn = document.querySelector(".contactForm__button");
 
-        contactFormBtn.addEventListener('click', () => {
+        contactFormBtn.addEventListener("click", () => {
           if (
-            this.state.newRestaurantName !== '' &&
-            this.state.newRestaurantAddress !== '' &&
+            this.state.newRestaurantName !== "" &&
+            this.state.newRestaurantAddress !== "" &&
             this.state.newRestaurantRating >= 0 &&
-            this.state.newRestaurantFeedback !== ''
+            this.state.newRestaurantFeedback !== ""
           ) {
             addMarker();
           }
@@ -218,7 +218,7 @@ class App extends Component {
           this.markers.push(additionalMarkers);
 
           // Event listener for the new markers
-          google.maps.event.addListener(additionalMarkers, 'click', () => {
+          google.maps.event.addListener(additionalMarkers, "click", () => {
             /* Get the right value from the add new restaurant form 
             to display on infowindow */
             let viewNewMarkers = position => {
@@ -257,27 +257,27 @@ class App extends Component {
                 <div class="reviewText">${selectedNewMarker
                   .map(marker => {
                     return (
-                      '<p>Rating: ' +
+                      "<p>Rating: " +
                       marker.reviews.rating +
-                      '</p>' +
+                      "</p>" +
                       '<p class="text">Review: ' +
                       marker.reviews.text +
-                      '</p>'
+                      "</p>"
                     );
                   })
-                  .join('')}
+                  .join("")}
                   <div class="reviewNewText">${selectedNewReviewsNewMarker
                     .map(review => {
                       return (
-                        '<p>Rating: ' +
+                        "<p>Rating: " +
                         review.rating +
-                        '</p>' +
+                        "</p>" +
                         '<p class="text">Review: ' +
                         review.feedback +
-                        '</p>'
+                        "</p>"
                       );
                     })
-                    .join('')}
+                    .join("")}
                 </div>
                 <img class="streetview" src=${getGoogleImage(
                   additionalMarkers
@@ -285,8 +285,8 @@ class App extends Component {
               </div>`;
 
             // Show infowindow when a new marker is clicked
-            infowindow.setContent(newMarkerBox);
-            infowindow.open(this.map, additionalMarkers);
+            this.infowindow.setContent(newMarkerBox);
+            this.infowindow.open(this.map, additionalMarkers);
           });
         };
         // End add new markers
@@ -321,7 +321,7 @@ class App extends Component {
             this.setState({ places: this.places });
             this.setState({ filteredPlaces: this.places });
 
-            restaurantsMarkers.addListener('click', () => {
+            restaurantsMarkers.addListener("click", () => {
               // Add a bounce effect when the restaurant marker is clicked
               if (restaurantsMarkers.getAnimation() !== null) {
                 restaurantsMarkers.setAnimation(null);
@@ -334,7 +334,7 @@ class App extends Component {
             });
 
             // Event listener for the existing restaurants
-            google.maps.event.addListener(restaurantsMarkers, 'click', () => {
+            google.maps.event.addListener(restaurantsMarkers, "click", () => {
               /* Get the right value from existing restaurants 
               to display on infowindow */
               let filterReviews = restaurantID => {
@@ -376,30 +376,30 @@ class App extends Component {
                   <div class="reviewText">${selectedReviewsById
                     .map(review => {
                       return (
-                        '<h5>Name: ' +
+                        "<h5>Name: " +
                         review.author_name +
-                        '</h5>' +
-                        '<p>Rating: ' +
+                        "</h5>" +
+                        "<p>Rating: " +
                         review.rating +
-                        '</p>' +
+                        "</p>" +
                         '<p class="text">Review: ' +
                         review.text +
-                        '</p>'
+                        "</p>"
                       );
                     })
-                    .join('')}
+                    .join("")}
                   <div class="reviewNewText">${selectedNewReviews
                     .map(review => {
                       return (
-                        '<p>Rating: ' +
+                        "<p>Rating: " +
                         review.rating +
-                        '</p>' +
+                        "</p>" +
                         '<p class="text">Review: ' +
                         review.feedback +
-                        '</p>'
+                        "</p>"
                       );
                     })
-                    .join('')}
+                    .join("")}
                   </div>  
                   </div>
                   <img class="streetview" src=${getGoogleImage(
@@ -408,8 +408,8 @@ class App extends Component {
                 </div>`;
 
               // Show infowindow when a marker is clicked
-              infowindow.setContent(reviewBox);
-              infowindow.open(this.map, restaurantsMarkers);
+              this.infowindow.setContent(reviewBox);
+              this.infowindow.open(this.map, restaurantsMarkers);
             });
           }
         };
@@ -432,7 +432,7 @@ class App extends Component {
             this.markers.push(localMarkers);
 
             // Event listener for the local markers
-            google.maps.event.addListener(localMarkers, 'click', () => {
+            google.maps.event.addListener(localMarkers, "click", () => {
               // Get the right value to display on infowindow
               let filterLocalReviews = restaurantID => {
                 restaurantID = localMarkers.id;
@@ -475,27 +475,27 @@ class App extends Component {
                   <div class="reviewText">${selectedLocalReviewsById
                     .map(review => {
                       return (
-                        '<p>Rating: ' +
+                        "<p>Rating: " +
                         review.rating +
-                        '</p>' +
+                        "</p>" +
                         '<p class="text">Review: ' +
                         review.text +
-                        '</p>'
+                        "</p>"
                       );
                     })
-                    .join('')}
+                    .join("")}
                     <div class="reviewNewText">${selectedNewReviews
                       .map(review => {
                         return (
-                          '<p>Rating: ' +
+                          "<p>Rating: " +
                           review.rating +
-                          '</p>' +
+                          "</p>" +
                           '<p class="text">Review: ' +
                           review.feedback +
-                          '</p>'
+                          "</p>"
                         );
                       })
-                      .join('')}
+                      .join("")}
                     </div>
                   </div>
                   <img class="streetview" src=${getGoogleImage(
@@ -504,8 +504,8 @@ class App extends Component {
                 </div>`;
 
               // Show infowindow when a marker is clicked
-              infowindow.setContent(reviewLocalJsonBox);
-              infowindow.open(this.map, localMarkers);
+              this.infowindow.setContent(reviewLocalJsonBox);
+              this.infowindow.open(this.map, localMarkers);
             });
           }
         };
@@ -548,7 +548,7 @@ class App extends Component {
       })
       .catch(error => {
         console.log(error);
-        alert('Error loading page...');
+        alert("Error loading page...");
       });
   }
 
@@ -578,6 +578,15 @@ class App extends Component {
         }
       });
     });
+  };
+
+  // Show the restaurant name when the restaurant name on the sidebar is clicked
+  listItemClick = place => {
+    // Get the marker id
+    let marker = this.markers.filter(marker => marker.id === place.place_id)[0];
+
+    this.infowindow.setContent(marker.title);
+    this.infowindow.open(this.map, marker);
   };
 
   // Get the current name value from the Add a new restaurant form
@@ -611,19 +620,19 @@ class App extends Component {
 
     // Add the coordinate from the newMarkers to the newRestaurantObj
     this.newMarkers.forEach(marker => {
-      newRestaurantObj['position'] = marker.position;
-      newRestaurantObj['geometry']['location'] = marker.position;
+      newRestaurantObj["position"] = marker.position;
+      newRestaurantObj["geometry"]["location"] = marker.position;
     });
 
     // Add values from the newRestaurantList array to the newRestaurantObj
     newRestaurantList.forEach(list => {
-      newRestaurantObj['place_id'] = this.state.randomID;
-      newRestaurantObj['name'] = list.name;
-      newRestaurantObj['vicinity'] = list.address;
-      newRestaurantObj['rating'] = parseInt(list.rating);
-      newRestaurantObj['reviews']['rating'] = parseInt(list.rating);
-      newRestaurantObj['reviews']['text'] = list.feedback;
-      newRestaurantObj['user_ratings_total'] = 1;
+      newRestaurantObj["place_id"] = this.state.randomID;
+      newRestaurantObj["name"] = list.name;
+      newRestaurantObj["vicinity"] = list.address;
+      newRestaurantObj["rating"] = parseInt(list.rating);
+      newRestaurantObj["reviews"]["rating"] = parseInt(list.rating);
+      newRestaurantObj["reviews"]["text"] = list.feedback;
+      newRestaurantObj["user_ratings_total"] = 1;
     });
 
     this.places.push(newRestaurantObj);
@@ -638,10 +647,10 @@ class App extends Component {
   onReviewSubmit = addReview => {
     let newReviewObj = {};
     addReview.forEach(review => {
-      newReviewObj['id'] = review.id;
-      newReviewObj['position'] = review.position;
-      newReviewObj['rating'] = review.rating;
-      newReviewObj['feedback'] = review.feedback;
+      newReviewObj["id"] = review.id;
+      newReviewObj["position"] = review.position;
+      newReviewObj["rating"] = review.rating;
+      newReviewObj["feedback"] = review.feedback;
     });
 
     // Existing restaurants review
@@ -666,6 +675,7 @@ class App extends Component {
         <Sidebar
           places={this.state.filteredPlaces}
           onReviewSubmit={this.onReviewSubmit}
+          listItemClick={this.listItemClick}
         >
           <RatingsFilter onFormSubmit={this.onFormSubmit} />
         </Sidebar>
