@@ -10,7 +10,7 @@ export function load_google_maps() {
     };
     // Now, Load the Google Maps API
     const script = document.createElement('script');
-    const API_KEY = '';
+    const API_KEY = 'AIzaSyBdfaGvQ20-Yvwx7FUtPqfvC2jrDHDGlxY';
     script.src = `https://maps.googleapis.com/maps/api/js?libraries=places&key=${API_KEY}&callback=resolveGoogleMapsPromise`;
     script.async = true;
     document.body.appendChild(script);
@@ -23,6 +23,6 @@ export function getGoogleImage(restaurantsMarkers) {
     restaurantsMarkers.lat +
     ',' +
     restaurantsMarkers.lng +
-    '&heading=151.78&pitch=-0.76&key='
+    '&heading=151.78&pitch=-0.76&key=AIzaSyBdfaGvQ20-Yvwx7FUtPqfvC2jrDHDGlxY'
   );
 }
