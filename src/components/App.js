@@ -84,7 +84,7 @@ class App extends Component {
 
         // Icon for the restaurants marker
         let markerIcon = {
-          url: "http://maps.google.com/mapfiles/kml/shapes/dining.png",
+          url: "../img/dining.png",
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
@@ -175,7 +175,7 @@ class App extends Component {
                 .substr(2, 9)
             );
           };
-          this.setState({ randomID: randomID() }, () => {});
+          this.setState({ randomID: randomID() }, () => { });
 
           if (
             addRestaurant.style.display === "" ||
@@ -183,7 +183,7 @@ class App extends Component {
           ) {
             addRestaurant.style.display = "block";
             addTempMarker(event.latLng);
-            this.setState({ currentClickLocation: event.latLng }, () => {});
+            this.setState({ currentClickLocation: event.latLng }, () => { });
           } else {
             addRestaurant.style.display = "none";
           }
@@ -255,29 +255,29 @@ class App extends Component {
               <div class="reviewBox">
               <h4>${additionalMarkers.title}</h4>
                 <div class="reviewText">${selectedNewMarker
-                  .map(marker => {
-                    return (
-                      "<p>Rating: " +
-                      marker.reviews.rating +
-                      "</p>" +
-                      '<p class="text">Review: ' +
-                      marker.reviews.text +
-                      "</p>"
-                    );
-                  })
-                  .join("")}
+                .map(marker => {
+                  return (
+                    "<p>Rating: " +
+                    marker.reviews.rating +
+                    "</p>" +
+                    '<p class="text">Review: ' +
+                    marker.reviews.text +
+                    "</p>"
+                  );
+                })
+                .join("")}
                   <div class="reviewNewText">${selectedNewReviewsNewMarker
-                    .map(review => {
-                      return (
-                        "<p>Rating: " +
-                        review.rating +
-                        "</p>" +
-                        '<p class="text">Review: ' +
-                        review.feedback +
-                        "</p>"
-                      );
-                    })
-                    .join("")}
+                .map(review => {
+                  return (
+                    "<p>Rating: " +
+                    review.rating +
+                    "</p>" +
+                    '<p class="text">Review: ' +
+                    review.feedback +
+                    "</p>"
+                  );
+                })
+                .join("")}
                 </div>
                 <img class="streetview" src=${getGoogleImage(
                   additionalMarkers
@@ -374,32 +374,32 @@ class App extends Component {
                 <div class="reviewBox">
                   <h4>${restaurantsMarkers.title}</h4>    
                   <div class="reviewText">${selectedReviewsById
-                    .map(review => {
-                      return (
-                        "<h5>Name: " +
-                        review.author_name +
-                        "</h5>" +
-                        "<p>Rating: " +
-                        review.rating +
-                        "</p>" +
-                        '<p class="text">Review: ' +
-                        review.text +
-                        "</p>"
-                      );
-                    })
-                    .join("")}
+                  .map(review => {
+                    return (
+                      "<h5>Name: " +
+                      review.author_name +
+                      "</h5>" +
+                      "<p>Rating: " +
+                      review.rating +
+                      "</p>" +
+                      '<p class="text">Review: ' +
+                      review.text +
+                      "</p>"
+                    );
+                  })
+                  .join("")}
                   <div class="reviewNewText">${selectedNewReviews
-                    .map(review => {
-                      return (
-                        "<p>Rating: " +
-                        review.rating +
-                        "</p>" +
-                        '<p class="text">Review: ' +
-                        review.feedback +
-                        "</p>"
-                      );
-                    })
-                    .join("")}
+                  .map(review => {
+                    return (
+                      "<p>Rating: " +
+                      review.rating +
+                      "</p>" +
+                      '<p class="text">Review: ' +
+                      review.feedback +
+                      "</p>"
+                    );
+                  })
+                  .join("")}
                   </div>  
                   </div>
                   <img class="streetview" src=${getGoogleImage(
@@ -473,29 +473,29 @@ class App extends Component {
                 <div class="reviewBox">
                   <h4>${localMarkers.title}</h4>
                   <div class="reviewText">${selectedLocalReviewsById
-                    .map(review => {
-                      return (
-                        "<p>Rating: " +
-                        review.rating +
-                        "</p>" +
-                        '<p class="text">Review: ' +
-                        review.text +
-                        "</p>"
-                      );
-                    })
-                    .join("")}
+                  .map(review => {
+                    return (
+                      "<p>Rating: " +
+                      review.rating +
+                      "</p>" +
+                      '<p class="text">Review: ' +
+                      review.text +
+                      "</p>"
+                    );
+                  })
+                  .join("")}
                     <div class="reviewNewText">${selectedNewReviews
-                      .map(review => {
-                        return (
-                          "<p>Rating: " +
-                          review.rating +
-                          "</p>" +
-                          '<p class="text">Review: ' +
-                          review.feedback +
-                          "</p>"
-                        );
-                      })
-                      .join("")}
+                  .map(review => {
+                    return (
+                      "<p>Rating: " +
+                      review.rating +
+                      "</p>" +
+                      '<p class="text">Review: ' +
+                      review.feedback +
+                      "</p>"
+                    );
+                  })
+                  .join("")}
                     </div>
                   </div>
                   <img class="streetview" src=${getGoogleImage(
@@ -591,22 +591,22 @@ class App extends Component {
 
   // Get the current name value from the Add a new restaurant form
   newRestaurantName = name => {
-    this.setState({ newRestaurantName: name }, () => {});
+    this.setState({ newRestaurantName: name }, () => { });
   };
 
   // Get the current address value from the Add a new restaurant form
   newRestaurantAddress = name => {
-    this.setState({ newRestaurantAddress: name }, () => {});
+    this.setState({ newRestaurantAddress: name }, () => { });
   };
 
   // Get the current rating value from the Add a new restaurant form
   newRestaurantRating = rating => {
-    this.setState({ newRestaurantRating: rating }, () => {});
+    this.setState({ newRestaurantRating: rating }, () => { });
   };
 
   // Get the current address value from the Add a new restaurant form
   newRestaurantFeedback = name => {
-    this.setState({ newRestaurantFeedback: name }, () => {});
+    this.setState({ newRestaurantFeedback: name }, () => { });
   };
 
   /* Merge the coordinate from the newMarkers array and
@@ -640,7 +640,7 @@ class App extends Component {
     let newMarkersArr = this.state.newMarkersArr.slice();
     newMarkersArr.push(newRestaurantObj);
 
-    this.setState({ newMarkersArr }, () => {});
+    this.setState({ newMarkersArr }, () => { });
   };
 
   // Add new review
@@ -657,7 +657,7 @@ class App extends Component {
     let newReviews = this.state.newReviews.slice();
     newReviews.push(newReviewObj);
 
-    this.setState({ newReviews }, () => {});
+    this.setState({ newReviews }, () => { });
   };
 
   render() {
