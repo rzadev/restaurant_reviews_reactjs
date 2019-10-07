@@ -84,7 +84,7 @@ class App extends Component {
 
         // Icon for the restaurants marker
         let markerIcon = {
-          url: "../img/dining.png",
+          url: "https://cdn1.imggmi.com/uploads/2019/10/7/51efdca769118eae5795ee40094b51a8-full.png",
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
