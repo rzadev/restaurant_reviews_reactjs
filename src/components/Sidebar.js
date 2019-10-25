@@ -93,7 +93,7 @@ class Sidebar extends Component {
               >
                 <div className='restaurantName'> {place.name} </div>
                 <div className='starRating'>
-                  <div className='numberRating'>{place.rating}</div>
+                  <div className='numberRating'>{place.rating.toFixed(1)}</div>
                   <StarRatingComponent
                     name='rating'
                     starColor='#ffb400'

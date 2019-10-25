@@ -11,8 +11,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      // lat: -6.2278795,
+      // lon: 106.8074303,
       lat: null,
       lon: null,
+      loading: true,
       places: [],
       placeReviews: {},
       localPlaceReviews: {},
@@ -38,14 +41,20 @@ class App extends Component {
     let localJson = require("../api/restaurants.json");
 
     // Get the user coordinate
-    window.navigator.geolocation.getCurrentPosition(
-      position =>
-        this.setState({
-          lat: parseFloat(position.coords.latitude),
-          lon: parseFloat(position.coords.longitude)
-        }),
-      err => console.log(err)
-    );
+    // window.navigator.geolocation.getCurrentPosition(
+    // navigator.geolocation.getCurrentPosition(
+    //   position =>
+    //     this.setState(
+    //       {
+    //         lat: parseFloat(position.coords.latitude),
+    //         lon: parseFloat(position.coords.longitude)
+    //       },
+    //       () => {}
+    //     ),
+    //   err => console.log(err)
+    // );
+
+    // this.getGeoLocation();
 
     Promise.all([get_google])
       .then(values => {
@@ -67,6 +76,7 @@ class App extends Component {
         this.newMarkersObj = {};
         this.map = new google.maps.Map(document.getElementById("map"), {
           zoom: 18,
+          scrollwheel: true,
           center: {
             lat: this.state.lat,
             lng: this.state.lon
@@ -84,7 +94,8 @@ class App extends Component {
 
         // Icon for the restaurants marker
         let markerIcon = {
-          url: "https://cdn1.imggmi.com/uploads/2019/10/7/51efdca769118eae5795ee40094b51a8-full.png",
+          url:
+            "https://cdn1.imggmi.com/uploads/2019/10/7/51efdca769118eae5795ee40094b51a8-full.png",
           size: new google.maps.Size(71, 71),
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(17, 34),
@@ -175,7 +186,7 @@ class App extends Component {
                 .substr(2, 9)
             );
           };
-          this.setState({ randomID: randomID() }, () => { });
+          this.setState({ randomID: randomID() }, () => {});
 
           if (
             addRestaurant.style.display === "" ||
@@ -183,7 +194,7 @@ class App extends Component {
           ) {
             addRestaurant.style.display = "block";
             addTempMarker(event.latLng);
-            this.setState({ currentClickLocation: event.latLng }, () => { });
+            this.setState({ currentClickLocation: event.latLng }, () => {});
           } else {
             addRestaurant.style.display = "none";
           }
@@ -255,29 +266,29 @@ class App extends Component {
               <div class="reviewBox">
               <h4>${additionalMarkers.title}</h4>
                 <div class="reviewText">${selectedNewMarker
-                .map(marker => {
-                  return (
-                    "<p>Rating: " +
-                    marker.reviews.rating +
-                    "</p>" +
-                    '<p class="text">Review: ' +
-                    marker.reviews.text +
-                    "</p>"
-                  );
-                })
-                .join("")}
+                  .map(marker => {
+                    return (
+                      "<p>Rating: " +
+                      marker.reviews.rating +
+                      "</p>" +
+                      '<p class="text">Review: ' +
+                      marker.reviews.text +
+                      "</p>"
+                    );
+                  })
+                  .join("")}
                   <div class="reviewNewText">${selectedNewReviewsNewMarker
-                .map(review => {
-                  return (
-                    "<p>Rating: " +
-                    review.rating +
-                    "</p>" +
-                    '<p class="text">Review: ' +
-                    review.feedback +
-                    "</p>"
-                  );
-                })
-                .join("")}
+                    .map(review => {
+                      return (
+                        "<p>Rating: " +
+                        review.rating +
+                        "</p>" +
+                        '<p class="text">Review: ' +
+                        review.feedback +
+                        "</p>"
+                      );
+                    })
+                    .join("")}
                 </div>
                 <img class="streetview" src=${getGoogleImage(
                   additionalMarkers
@@ -374,32 +385,32 @@ class App extends Component {
                 <div class="reviewBox">
                   <h4>${restaurantsMarkers.title}</h4>    
                   <div class="reviewText">${selectedReviewsById
-                  .map(review => {
-                    return (
-                      "<h5>Name: " +
-                      review.author_name +
-                      "</h5>" +
-                      "<p>Rating: " +
-                      review.rating +
-                      "</p>" +
-                      '<p class="text">Review: ' +
-                      review.text +
-                      "</p>"
-                    );
-                  })
-                  .join("")}
+                    .map(review => {
+                      return (
+                        "<h5>Name: " +
+                        review.author_name +
+                        "</h5>" +
+                        "<p>Rating: " +
+                        review.rating +
+                        "</p>" +
+                        '<p class="text">Review: ' +
+                        review.text +
+                        "</p>"
+                      );
+                    })
+                    .join("")}
                   <div class="reviewNewText">${selectedNewReviews
-                  .map(review => {
-                    return (
-                      "<p>Rating: " +
-                      review.rating +
-                      "</p>" +
-                      '<p class="text">Review: ' +
-                      review.feedback +
-                      "</p>"
-                    );
-                  })
-                  .join("")}
+                    .map(review => {
+                      return (
+                        "<p>Rating: " +
+                        review.rating +
+                        "</p>" +
+                        '<p class="text">Review: ' +
+                        review.feedback +
+                        "</p>"
+                      );
+                    })
+                    .join("")}
                   </div>  
                   </div>
                   <img class="streetview" src=${getGoogleImage(
@@ -473,29 +484,29 @@ class App extends Component {
                 <div class="reviewBox">
                   <h4>${localMarkers.title}</h4>
                   <div class="reviewText">${selectedLocalReviewsById
-                  .map(review => {
-                    return (
-                      "<p>Rating: " +
-                      review.rating +
-                      "</p>" +
-                      '<p class="text">Review: ' +
-                      review.text +
-                      "</p>"
-                    );
-                  })
-                  .join("")}
+                    .map(review => {
+                      return (
+                        "<p>Rating: " +
+                        review.rating +
+                        "</p>" +
+                        '<p class="text">Review: ' +
+                        review.text +
+                        "</p>"
+                      );
+                    })
+                    .join("")}
                     <div class="reviewNewText">${selectedNewReviews
-                  .map(review => {
-                    return (
-                      "<p>Rating: " +
-                      review.rating +
-                      "</p>" +
-                      '<p class="text">Review: ' +
-                      review.feedback +
-                      "</p>"
-                    );
-                  })
-                  .join("")}
+                      .map(review => {
+                        return (
+                          "<p>Rating: " +
+                          review.rating +
+                          "</p>" +
+                          '<p class="text">Review: ' +
+                          review.feedback +
+                          "</p>"
+                        );
+                      })
+                      .join("")}
                     </div>
                   </div>
                   <img class="streetview" src=${getGoogleImage(
@@ -520,6 +531,38 @@ class App extends Component {
           position: userPosition,
           animation: google.maps.Animation.DROP
         });
+
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(
+            position => {
+              // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`);
+              // this.setState(
+              //   {
+              //     lat: parseFloat(position.coords.latitude),
+              //     lon: parseFloat(position.coords.longitude)
+              //   },
+              //   () => {}
+              // );
+
+              console.log(this.state.lat);
+
+              // Set marker's position.
+              currentPosition.setPosition({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              });
+
+              // Center map to user's position.
+              this.map.panTo({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+              });
+            }
+            // err => alert(`Error (${err.code}): ${getPositionErrorMessage(err.code)}`)
+          );
+        } else {
+          alert("Geolocation is not supported by your browser.");
+        }
 
         // Star ratings
         let starRatings = () => {
@@ -591,22 +634,22 @@ class App extends Component {
 
   // Get the current name value from the Add a new restaurant form
   newRestaurantName = name => {
-    this.setState({ newRestaurantName: name }, () => { });
+    this.setState({ newRestaurantName: name }, () => {});
   };
 
   // Get the current address value from the Add a new restaurant form
   newRestaurantAddress = name => {
-    this.setState({ newRestaurantAddress: name }, () => { });
+    this.setState({ newRestaurantAddress: name }, () => {});
   };
 
   // Get the current rating value from the Add a new restaurant form
   newRestaurantRating = rating => {
-    this.setState({ newRestaurantRating: rating }, () => { });
+    this.setState({ newRestaurantRating: rating }, () => {});
   };
 
   // Get the current address value from the Add a new restaurant form
   newRestaurantFeedback = name => {
-    this.setState({ newRestaurantFeedback: name }, () => { });
+    this.setState({ newRestaurantFeedback: name }, () => {});
   };
 
   /* Merge the coordinate from the newMarkers array and
@@ -640,7 +683,7 @@ class App extends Component {
     let newMarkersArr = this.state.newMarkersArr.slice();
     newMarkersArr.push(newRestaurantObj);
 
-    this.setState({ newMarkersArr }, () => { });
+    this.setState({ newMarkersArr }, () => {});
   };
 
   // Add new review
@@ -657,8 +700,37 @@ class App extends Component {
     let newReviews = this.state.newReviews.slice();
     newReviews.push(newReviewObj);
 
-    this.setState({ newReviews }, () => { });
+    this.setState({ newReviews }, () => {});
   };
+
+  // getGeoLocation = () => {
+  //   if ('geolocation' in navigator) {
+  //     navigator.geolocation.getCurrentPosition(
+  //       position => {
+  //         // console.log(`Lat: ${position.coords.latitude} Lng: ${position.coords.longitude}`);
+  //         this.setState({
+  //           lat: parseFloat(position.coords.latitude),
+  //           lon: parseFloat(position.coords.longitude)
+  //         })
+
+  //         // Set marker's position.
+  //         marker.setPosition({
+  //           lat: position.coords.latitude,
+  //           lng: position.coords.longitude
+  //         });
+
+  //         // Center map to user's position.
+  //         map.panTo({
+  //           lat: position.coords.latitude,
+  //           lng: position.coords.longitude
+  //         });
+  //       },
+  //       err => alert(`Error (${err.code}): ${getPositionErrorMessage(err.code)}`)
+  //     );
+  //   } else {
+  //     alert('Geolocation is not supported by your browser.');
+  //   }
+  // };
 
   render() {
     return (
